@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>
+            {{project_title}}
+        </title>
+    </head>
+
+    <body>
+        <h1>Project: {{project_title}}</h1>
+       
+        <ul>
+            {% for project in project_grades %}
+              <li><b>Student:</b> {{project[0]}} {{project[1]}} <b>GitHub:</b> <a href="http://127.0.0.1:5000/student?student={{project[2]}}">{{project[2]}}</a> <b>Grade:</b> {{project[3]}}</li>
+            {% endfor %}
+        </ul>
+
+    </body>
+
+</html>

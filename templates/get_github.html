@@ -1,0 +1,43 @@
+<html>
+    <body>
+        <h1>Look up Records</h1>
+        <h2>Look up by Github</h2>
+        <form action="/student">
+            <label for="github">Enter github id</label>
+            <input type="text" id='github' name="student" />
+            <input type="submit">
+        </form>
+        <h1>Create new records</h1>
+        <h2>New Student</h2>
+        <form action="/newstudent">
+            <label for="first_name">First Name</label>
+            <input type="text" id='first_name' name="first_name" />
+            <label for="last_name">Last Name</label>
+            <input type="text" id='last_name' name="last_name" />
+            <label for="github_account">Github ID</label>
+            <input type="text" id='github_account' name="github" />
+            <input type="submit">
+        </form>
+        <h2>New Project</h2>
+        <form action="/newproject">
+            <label for="title">Title</label>
+            <input type="text" id='title' name="title" />
+            <label for="description">Description</label>
+            <input type="text" id='description' name="description" />
+            <label for="max_grade">Maximum Grade</label>
+            <input type="text" id='max_grade' name="max_grade" />
+            <input type="submit">
+        </form>
+        <h2>Assign Grade</h2>
+        <form action="/assigngrade">
+            <label for="student_github">Github ID</label>
+            <input type="text" id='student_github' name="student_github" />
+            <label for="project_title">Project Title</label>
+            <input type="text" id='project_title' name="project_title" />
+            <label for="grade">Grade</label>
+            <input type="text" id='grade' name="grade" />
+            <input type="submit">
+        </form>
+    </body>
+
+</html>

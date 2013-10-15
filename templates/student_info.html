@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>
+            {{first_name}} {{last_name}}
+        </title>
+    </head>
+
+    <body>
+        <h1>Student: {{last_name}}, {{first_name}}</h1>
+        <h2>Github: {{github}}</h2>
+        <h2>Projects:</h2>
+        <ul>
+            {% for project in projects %}
+              <li><b>Project Title:</b> <a href="http://127.0.0.1:5000/projects?project={{project[1]}}">{{project[1]}}</a>  <b>Grade:</b> {{project[2]}}</li>
+            {% endfor %}
+        </ul>
+
+    </body>
+
+</html>

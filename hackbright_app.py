@@ -3,39 +3,34 @@ import sqlite3
 DB = None
 CONN = None
 
-def get_student_by_github(github):
-    query = """SELECT first_name, last_name, github FROM Students WHERE github = ?"""
-    DB.execute(query, (github,))
-    row = DB.fetchone()
-    print """\
-Student: %s %s
-Github account: %s"""%(row[0], row[1], row[2])
-
 def connect_to_db():
     global DB, CONN
     CONN = sqlite3.connect("hackbright.db")
     DB = CONN.cursor()
 
+def get_student_by_github(github):
+    query = """SELECT first_name, last_name, github FROM Students WHERE github = ?"""
+    DB.execute(query, (github,))
+    row = DB.fetchone()
+    return row
+
 def make_new_student(first_name, last_name, github):
     query = """INSERT into Students values (?, ?, ?)"""
     DB.execute(query, (first_name, last_name, github))
     CONN.commit()
-    print "Successfully added student: %s %s" % (first_name, last_name)
+    return
 
 def get_project_by_title(title):
     query = """SELECT title, description, max_grade FROM Projects WHERE title = ?"""
     DB.execute(query, (title,))
     row = DB.fetchone()
-    print """\
-Project Title: %s
-Description: %s
-Maximum Grade: %s""" % (row[0], row[1], row[2])
+    return row
 
 def make_new_project(title, description, max_grade):
     query = """INSERT into Projects values (?, ?, ?)"""
     DB.execute(query, (title, description, max_grade))
     CONN.commit()
-    print "Successfully added new project: %s" % title
+    return
 
 def get_student_grade(first_name, title):
     query = """SELECT Students.first_name, Grades.project_title, Grades.grade \
@@ -43,27 +38,25 @@ def get_student_grade(first_name, title):
             WHERE Students.first_name = ? AND Grades.project_title = ?"""
     DB.execute(query, (first_name, title))
     row = DB.fetchone()
-    print """\
-Student name: %s 
-Project Title: %s 
-Grade: %d""" % (row[0], row[1], row[2])
+    return row
 
 def assign_grade(student_github, project_title, grade):
     query = """INSERT into Grades values (?, ?, ?)"""
     DB.execute(query, (student_github, project_title, grade))
     CONN.commit()
-    print "Successfully assigned %s points to %s for %s" % (grade, student_github, project_title)
+    return
 
 def get_student_report(student_github):
     query = """SELECT student_github, project_title, grade FROM Grades WHERE student_github = ?"""
     DB.execute(query, (student_github,))
     rows = DB.fetchall()
-    print """Student github: %s""" % rows[0][0]
-    for row in rows:
-        print """
-Project Title: %s
-Grade: %d
-""" % (row[1], row[2])
+    return rows
+
+def get_project_grades(project_title):
+    query = """SELECT Students.first_name, Students.last_name, Students.github, Grades.grade FROM Grades JOIN Students on Students.github = Grades.student_github WHERE project_title = ?"""
+    DB.execute(query, (project_title,))
+    rows = DB.fetchall()
+    return rows
 
 
 def main():
